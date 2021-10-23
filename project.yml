@@ -1,0 +1,31 @@
+name: xccloud
+options:
+  bundleIdPrefix: uk.pixlwave
+targets:
+  xccloud:
+    type: application
+    platform: iOS
+    deploymentTarget: "15.0"
+    settings:
+      base:
+        PRODUCT_NAME: $TARGET_NAME
+        PRODUCT_BUNDLE_IDENTIFIER: uk.pixlwave.${PRODUCT_NAME}
+        MARKETING_VERSION: 1.0.0
+        CURRENT_PROJECT_VERSION: 1
+        ENABLE_PREVIEWS: true
+        DEVELOPMENT_ASSET_PATHS: "\"Preview Content\""
+        GENERATE_INFOPLIST_FILE: YES
+    sources: [Sources]
+  Tests:
+    type: bundle.unit-test
+    platform: iOS
+    dependencies:
+    - target: xccloud
+    settings:
+      base:
+        PRODUCT_NAME: Tests
+        GENERATE_INFOPLIST_FILE: YES
+        BUNDLE_LOADER: $(TEST_HOST)
+        PRODUCT_BUNDLE_IDENTIFIER: uk.pixlwave.${PRODUCT_NAME}
+        TEST_HOST: $(BUILT_PRODUCTS_DIR)/xccloud.app/xccloud
+    sources: [Tests]
